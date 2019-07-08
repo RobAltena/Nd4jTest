@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.nd4j.linalg.api.buffer.DataType;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -8,8 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Nd4jTest {
 
+    @BeforeAll
+    static public void beforeAll(){
+        Nd4j.factory().setOrder('f');
+    }
+
     @Test
     public void testAppend() {
+
         INDArray appendTo = Nd4j.ones(DataType.DOUBLE,3, 3);
         INDArray ret = Nd4j.append(appendTo, 3, 1, -1);
         assertArrayEquals(new long[] {3, 6}, ret.shape());
